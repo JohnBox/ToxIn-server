@@ -1,0 +1,190 @@
+body {
+  background-color: #eee;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -moz-user-select: none;
+}
+.scrollarea-content {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+.scrollarea {
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 500px;
+}
+.scrollarea .scrollbar-container {
+  position: absolute;
+  background: none;
+  opacity: .1;
+  z-index: 9999;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+.scrollarea .scrollbar-container.vertical {
+  width: 8px;
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+.scrollarea .scrollbar-container.vertical .scrollbar {
+  width: 8px;
+  height: 20px;
+  background: black;
+}
+.scrollarea .scrollbar-container:hover {
+  background: gray;
+  opacity: .3 !important;
+}
+.scrollarea .scrollbar-container.active {
+  background: gray;
+  opacity: .3 !important;
+}
+.scrollarea:hover .scrollbar-container {
+  opacity: .3;
+}
+.start_page .paper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.start_page .appbar_button {
+  margin-top: 6px !important;
+  margin-right: 4px !important;
+}
+.start_page .start_form,
+.start_page .register_form {
+  float: right;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.start_page .about {
+  text-align: right;
+  min-height: 50px;
+  max-height: 50px;
+  width: 100%;
+  background-color: #00BCD4;
+  clear: both;
+  align-self: flex-end;
+}
+.register_page .paper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.register_page .appbar_button {
+  margin-top: 6px !important;
+  margin-right: 4px !important;
+}
+.register_page .register_form {
+  float: right;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.register_page .about {
+  text-align: right;
+  min-height: 50px;
+  max-height: 50px;
+  width: 100%;
+  background-color: #00BCD4;
+  clear: both;
+  align-self: flex-end;
+}
+.main_page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #fff;
+}
+.main_page .toggle_button,
+.main_page .out_button {
+  margin-top: -6px !important;
+}
+.panel {
+  width: 28%;
+  float: left;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.panel .logo_button {
+  margin-top: -2px;
+  margin-left: 14px;
+  height: 52px;
+}
+.panel .logo_button img {
+  cursor: pointer;
+  border-radius: 100%;
+  height: 48px;
+  width: 48px;
+}
+.panel .profile_button {
+  font-size: 1.4em;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+}
+.panel .tab_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.panel .tab_container .tab {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  flex: 1 1 auto;
+  width: 72%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container .window {
+  width: 700px;
+  flex: 1;
+}
+.container img {
+  height: 300px;
+  width: 300px;
+}
+.search_tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.search_tab .user {
+  width: 100%;
+  clear: both;
+}
+.search_tab .user img {
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  border: solid 1px grey;
+  float: left;
+}
+.search_tab .user .username {
+  float: left;
+}
