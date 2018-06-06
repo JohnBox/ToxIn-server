@@ -1,44 +1,61 @@
 from django.shortcuts import render_to_response
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as enter
+from django.contrib.auth import authenticate, login
+from django.views.generic.base import View
+from django.db.models import Q
 from ToxIn.models import *
 
-def home(request):
-    return render_to_response('index.html')
 
-@csrf_exempt
-def login(request):
-    if request.method == 'POST':
-        print('LOGIN: '+str(request.POST))
-        u = authenticate(username=request.POST['username'], password=request.POST['passwd'])
-        if u:
-            enter(request, u)
-            return JsonResponse({'a': {'username': u.username, 'first_name': u.first_name, 'last_name': u.last_name}})
+class HomeView(View):
+
+    def get(self, request):
+        return render_to_response('index.html')
+
+
+class SignInView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SignInView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        print('IN: '+str(request.POST))
+        user = authenticate(username=request.POST['username'],
+                            password=request.POST['password'])
+        if user:
+            login(request, user)
+            return JsonResponse({'a': {'username': user.username,
+                                       'first_name': user.first_name,
+                                       'last_name': user.last_name}})
         else:
             return JsonResponse({'e': 'Невірний логін або пароль'})
-    return None
 
-@csrf_exempt
-def register(request):
-    if request.method == 'POST':
-        print('REG: '+str(request.POST))
-        u = User.objects.filter(username=request.POST['username'])
-        e = User.objects.filter(email=request.POST['email'])
-        if u:
-            return JsonResponse({'e': 'Користувач з таким логіном вже існує'})
-        elif e:
-            return JsonResponse({'e': 'Користувач з такою ел.поштою вже існує'})
+
+class SignUpView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(SignUpView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request):
+        print('UO: '+str(request.POST))
+        users = User.objects.filter(
+            Q(username=request.POST['username']) | Q(email=request.POST['email'])
+        )
+        if users:
+            return JsonResponse({'e': 'Користувач з такими даними вже існує'})
         else:
-            u = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['passwd'])
-            u.first_name = request.POST['first_name']
-            u.last_name = request.POST['last_name']
-            u.save()
-            up = UserProfile(user=u)
-            up.save()
+            user = User.objects.create_user(
+                username=request.POST['username'],
+                email=request.POST['email'],
+                password=request.POST['password']
+            )
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.save()
+            profile = UserProfile(user=user)
+            profile.save()
             return JsonResponse({'a': True})
-    return None
 
 @csrf_exempt
 def getallusers(request):

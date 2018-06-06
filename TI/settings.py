@@ -37,8 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ToxIn',
     'corsheaders',
+    'rest_framework',
+    'ToxIn',
 )
 
 MIDDLEWARE_CLASSES = (
